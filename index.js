@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const expresshandlebars = require('express-handlebars');
 const todoRoutes = require('./roures/todos');
 const path = require('path');
+require('dotenv/config');
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,11 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(todoRoutes);
 
+
 async function start() {
   // mongoose.connect - сonnect to database
   try {
     await mongoose.connect(
-      'mongodb+srv://anton:qweqwe123@cluster0.i7uvq.mongodb.net/todos',
+      process.env.DB_CONNECTION,
       {
         useNewUrlParser: true,
         useFindAndModify: false,
